@@ -1,0 +1,9 @@
+.checkout-side-menu{
+  width: 360px;
+  /* height: calc(100vh - 68px); */
+  transition: ease .3s;
+}
+
+.checkout-side-menu.active{
+  transform: translateX(-100%);
+}
