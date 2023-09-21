@@ -3,12 +3,12 @@ import './styles.css';
 
 import { IoCloseSharp } from 'react-icons/io5';
 import { DataProvider } from '../../dataContext/DataContext';
+import { OrderCard } from '../OrderCard/OrderCard';
 
 export function CheckoutSideMenu({ data }) {
-  const { 
-    seeCheckoutSideMenu, 
-    closeCheckoutSideMenu, 
-    removeProductToCart,
+  const {
+    seeCheckoutSideMenu,
+    closeCheckoutSideMenu,
     cartProducts
   } = useContext(DataProvider);
 
@@ -21,7 +21,15 @@ export function CheckoutSideMenu({ data }) {
           onClick={closeCheckoutSideMenu}
           className='cursor-pointer' />
       </div>
-      
+      {cartProducts?.map(prod =>
+        <OrderCard
+          key={prod.id}
+          id={prod.id}
+          title={prod.title}
+          image={prod.images[0]}
+          price={prod.price}
+        />
+      )}
     </aside >
   );
 }
