@@ -9,7 +9,7 @@ export function ProductDetail({ data }) {
 
   return (
     <aside aside
-      className={`product-detail  flex flex-col fixed left-full top-[68px] border border-black rounded-lg z-30 ${seeProductDetail ? 'active' : ''}`} >
+      className={`product-detail bg-white  flex flex-col fixed left-full top-[68px] border border-black rounded-lg z-30 ${seeProductDetail ? 'active' : ''}`} >
       <div className='flex justify-between items-center p-6'>
         <h2 className='font-medium text-xl'>Detail</h2>
         <IoCloseSharp

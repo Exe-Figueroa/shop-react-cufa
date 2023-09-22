@@ -41,11 +41,11 @@ export function Card({ data }) {
           className='w-full h-full object-cover rounded-lg' />
 
         <div
-          className={`card-icon-remove-add flex absolute justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 ${!isInProductCart ? '' : 'remove'}`}>
+          className={`card-icon-remove-add flex absolute justify-center items-center w-6 h-6 rounded-full m-2 p-1 ${!isInProductCart ? 'bg-white' : 'remove bg-slate-900'}`}>
           {!isInProductCart ?
             <IoAddSharp onClick={(e) => addProductToCart(e, data)} className='w-full h-full' />
             :
-            <IoCloseSharp onClick={(e) => removeProductToCart(e, data.id)} className='w-full h-full' />
+            <IoCloseSharp onClick={(e) => removeProductToCart(e, data.id)} className='w-full h-full text-white' />
           }
         </div>
       </figure>

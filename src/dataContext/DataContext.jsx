@@ -6,10 +6,16 @@ export function DataContextProvider({ children }) {
   //Cart products
   const [count, setCount] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
+  //orders
+  const [order, setOrder] = useState([]);
+
   //Product detail modal
   const [seeProductDetail, setSeeProductDetail] = useState(false);
   const openProductDetail = () => setSeeProductDetail(true);
   const closeProductDetail = () => setSeeProductDetail(false);
+
+  //totalPrice
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [productToShow, setProductToShow] = useState({
     title: "",
@@ -27,15 +33,19 @@ export function DataContextProvider({ children }) {
     setCount(count + 1);
     setCartProducts([...cartProducts, product]);
     closeProductDetail();
+
+    setTotalPrice(totalPrice + product.price);
+
     setTimeout(() => openCheckoutSideMenu(), 300);
   };
-function removeProductToCart(e, id) {
+  function removeProductToCart(e, id) {
     e.stopPropagation();
     const newArray = cartProducts.filter(item => item.id !== id);
     setCartProducts(newArray);
     setCount(count - 1);
+    const priceItem = cartProducts.find(item => item.id === id).price;
+    setTotalPrice(totalPrice - priceItem);
   };
-  
 
   return (
     <DataProvider.Provider value={
@@ -54,6 +64,10 @@ function removeProductToCart(e, id) {
         closeCheckoutSideMenu,
         addProductToCart,
         removeProductToCart,
+        setTotalPrice,
+        totalPrice,
+        order,
+        setOrder,
       }
     }>
       {children}
