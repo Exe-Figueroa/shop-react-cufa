@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom'
+
 import './styles.css';
 
 import { IoCloseSharp } from 'react-icons/io5';
@@ -15,13 +17,14 @@ export function CheckoutSideMenu({ data }) {
     setTotalPrice,
     order,
     setOrder,
+    setCount,
   } = useContext(DataProvider);
 
   function handleCheckout() {
     const currentDate = new Date();
-  
+
     const formattedDate = currentDate.toISOString();
-    
+
     const orderToAdd = {
       date: formattedDate,
       products: cartProducts,
@@ -32,18 +35,20 @@ export function CheckoutSideMenu({ data }) {
     setCartProducts([]);
     setTotalPrice(0);
     console.log(orderToAdd);
+    closeCheckoutSideMenu();
+    setCount(0);
   }
 
   return (
     <aside aside
-      className={`checkout-side-menu bg-white overflow-y-auto flex flex-col fixed left-full top-[68px] border border-black rounded-lg z-30 ${seeCheckoutSideMenu ? 'active' : ''}`} >
+      className={`checkout-side-menu bg-white flex flex-col fixed left-full top-[68px] border border-black rounded-lg z-30 ${seeCheckoutSideMenu ? 'active' : ''}`} >
       <div className='flex justify-between items-center p-6'>
         <h2 className='font-medium text-xl'>My Order</h2>
         <IoCloseSharp
           onClick={closeCheckoutSideMenu}
           className='cursor-pointer' />
       </div>
-      <section className='flex flex-col gap-2 p-6'>
+      <section className='flex flex-col gap-2 p-6 flex-1 overflow-y-scroll min-h-[50vh]'>
         {cartProducts.length > 0 ? cartProducts.map(prod =>
           <OrderCard
             key={prod.id}
@@ -54,12 +59,21 @@ export function CheckoutSideMenu({ data }) {
           />
         ) : <h1>There are no purchase orders yet</h1>}
       </section>
-      <div className="px-6 flex justify-center items-center">
-        <p className='flex justify-center gap-4 items-center bg-red-100 p-4 mb-3 rounded-lg min-w-[200px]'>
+      <div className="px-6 flex justify-center flex-col items-center mb-6">
+        <p className='flex justify-between w-full items-center mb-2 '>
           <span className='font-light '>Total Price:</span>
           <span className='font-semibold text-2xl'> ${totalPrice}</span>
         </p>
-        <button onClick={() => handleCheckout()}>Checkout</button>
+        <Link
+          to='/my-orders/full'
+          className='w-full bg-black py-3 text-white rounded-lg'>
+          <button
+            className='w-full bg-black py-3 text-white rounded-lg'
+            onClick={() => handleCheckout()}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
     </aside >
   );

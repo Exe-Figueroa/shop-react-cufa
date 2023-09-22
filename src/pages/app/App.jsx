@@ -1,4 +1,4 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { BrowserRouter, Link, useRoutes } from 'react-router-dom';
 
 import { DataContextProvider } from '../../dataContext/DataContext.jsx';
 
@@ -33,6 +33,10 @@ const AppRoutes = () => {
       element: <MyOrders />
     },
     {
+      path: '/my-orders/last',
+      element: <MyOrder />
+    },
+    {
       path: '/sign-in',
       element: <SignIn />
     },
@@ -48,8 +52,8 @@ export function App() {
 
   return (
     <DataContextProvider>
-      <CheckoutSideMenu />
       <BrowserRouter >
+      <CheckoutSideMenu />
           <AppRoutes />
           <Navbar />
       </BrowserRouter>
