@@ -1,8 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+
+const api = 'https://api.escuelajs.co/api/v1/products';
 
 export const DataProvider = createContext();
 
 export function DataContextProvider({ children }) {
+  const [products, setProducts] = useState(null);
+
+  useEffect(() => {
+    fetch(api)
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data.slice(0, 40));
+      });
+  }, []);
+
   //Cart products
   const [count, setCount] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
@@ -35,7 +47,6 @@ export function DataContextProvider({ children }) {
     closeProductDetail();
 
     setTotalPrice(totalPrice + product.price);
-
     setTimeout(() => openCheckoutSideMenu(), 300);
   };
   function removeProductToCart(e, id) {
@@ -46,6 +57,9 @@ export function DataContextProvider({ children }) {
     const priceItem = cartProducts.find(item => item.id === id).price;
     setTotalPrice(totalPrice - priceItem);
   };
+
+  //Search product
+  const [searchedProduct, setSearchedProduct] = useState('');
 
   return (
     <DataProvider.Provider value={
@@ -68,6 +82,9 @@ export function DataContextProvider({ children }) {
         totalPrice,
         order,
         setOrder,
+        products,
+        searchedProduct,
+        setSearchedProduct
       }
     }>
       {children}

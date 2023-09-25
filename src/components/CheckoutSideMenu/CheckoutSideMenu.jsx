@@ -18,6 +18,7 @@ export function CheckoutSideMenu({ data }) {
     order,
     setOrder,
     setCount,
+    removeProductToCart,
   } = useContext(DataProvider);
 
   function handleCheckout() {
@@ -34,7 +35,6 @@ export function CheckoutSideMenu({ data }) {
     setOrder([...order, orderToAdd]);
     setCartProducts([]);
     setTotalPrice(0);
-    console.log(orderToAdd);
     closeCheckoutSideMenu();
     setCount(0);
   }
@@ -56,6 +56,7 @@ export function CheckoutSideMenu({ data }) {
             title={prod.title}
             image={prod.images[0]}
             price={prod.price}
+            removeProductToCart={removeProductToCart}
           />
         ) : <h1>There are no purchase orders yet</h1>}
       </section>
@@ -65,7 +66,7 @@ export function CheckoutSideMenu({ data }) {
           <span className='font-semibold text-2xl'> ${totalPrice}</span>
         </p>
         <Link
-          to='/my-orders/full'
+          to='/my-orders/last'
           className='w-full bg-black py-3 text-white rounded-lg'>
           <button
             className='w-full bg-black py-3 text-white rounded-lg'

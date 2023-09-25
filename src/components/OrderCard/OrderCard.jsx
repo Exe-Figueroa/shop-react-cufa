@@ -1,13 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
-import { DataProvider } from '../../dataContext/DataContext';
 
-export function OrderCard({ id, title, image, price }) {
-  const {
-    removeProductToCart,
-    cartProducts
-  } = useContext(DataProvider);
-
+export function OrderCard({ id, title, image, price, removeProductToCart, }) {
 
   return (
     <div className='flex justify-between items-center mb-3'>
@@ -19,9 +13,9 @@ export function OrderCard({ id, title, image, price }) {
       </div>
       <div className='flex items-center relative'>
         <p className='text-lg mr-4 font-medium'>${price}</p>
-        <IoCloseSharp
+        {removeProductToCart ? <IoCloseSharp
           onClick={(e) => removeProductToCart(e, id)}
-          className='cursor-pointer text-xl ml-2 absolute top-[-10px] right-[-10px]' />
+          className='cursor-pointer text-xl ml-2 absolute top-[-10px] right-[-10px]' /> : null}
       </div>
     </div>
   );

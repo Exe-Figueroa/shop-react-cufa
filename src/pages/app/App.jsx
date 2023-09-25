@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, useRoutes } from 'react-router-dom';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 
 import { DataContextProvider } from '../../dataContext/DataContext.jsx';
 
@@ -21,6 +21,26 @@ const AppRoutes = () => {
       element: <Home />
     },
     {
+      path: '/clothes',
+      element: <Home />
+    },
+    {
+      path: '/electronics',
+      element: <Home />
+    },
+    {
+      path: '/furnitures',
+      element: <Home />
+    },
+    {
+      path: '/toys',
+      element: <Home />
+    },
+    {
+      path: '/others',
+      element: <Home />
+    },
+    {
       path: '/my-account',
       element: <MyAccount />
     },
@@ -34,6 +54,10 @@ const AppRoutes = () => {
     },
     {
       path: '/my-orders/last',
+      element: <MyOrder />
+    },
+    {
+      path: '/my-orders/:id',
       element: <MyOrder />
     },
     {
@@ -53,9 +77,9 @@ export function App() {
   return (
     <DataContextProvider>
       <BrowserRouter >
-      <CheckoutSideMenu />
-          <AppRoutes />
-          <Navbar />
+        <CheckoutSideMenu /> 
+        <AppRoutes />
+        <Navbar />
       </BrowserRouter>
     </DataContextProvider>
   );
