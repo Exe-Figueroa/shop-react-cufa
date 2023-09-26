@@ -11,7 +11,7 @@ export function DataContextProvider({ children }) {
     fetch(api)
       .then(res => res.json())
       .then(data => {
-        setProducts(data.slice(0, 40));
+        setProducts(data);
       });
   }, []);
 
@@ -60,6 +60,31 @@ export function DataContextProvider({ children }) {
 
   //Search product
   const [searchedProduct, setSearchedProduct] = useState('');
+  const [searchedProductsByCategory, setSearchedProductsByCategory] = useState('');
+  const [productFiltered, setProductFiltered] = useState([]);
+
+  function filterProductsBySearchAndCategory(title, category) {
+    if (!title && !category) {
+      setProductFiltered([]);
+    } else {
+      let productArray = products;
+
+      if (title) {
+        productArray = productArray.filter(prod => prod.title.toLowerCase().includes(title));
+      }
+
+      if (category) {
+        productArray = productArray.filter(prod => prod.category.name.toLowerCase().includes(category));
+      }
+      setProductFiltered(productArray);
+      console.log({ products, productArray, productFiltered });
+    }
+  }
+
+  useEffect(() => {
+    filterProductsBySearchAndCategory(searchedProduct, searchedProductsByCategory);
+  }, [searchedProduct, searchedProductsByCategory]);
+
 
   return (
     <DataProvider.Provider value={
@@ -84,7 +109,10 @@ export function DataContextProvider({ children }) {
         setOrder,
         products,
         searchedProduct,
-        setSearchedProduct
+        setSearchedProduct,
+        productFiltered,
+        searchedProductsByCategory,
+        setSearchedProductsByCategory
       }
     }>
       {children}

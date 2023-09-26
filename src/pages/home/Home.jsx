@@ -10,34 +10,41 @@ export function Home(props) {
   const {
     products,
     searchedProduct,
-    setSearchedProduct
+    setSearchedProduct,
+    productFiltered,
+    searchedProductsByCategory
   } = useContext(DataProvider);
-  const [productFiltered, setProductFiltered] = useState([]);
-  function filterProducts(inputValue) {
-    const productArray = products.filter(prod => prod.title.toLowerCase().includes(inputValue));
-    setProductFiltered(productArray);
-  }
 
   function onChange(inputValue) {
-    setSearchedProduct(inputValue);
-    filterProducts(inputValue.toLowerCase());
-  }
-  function renderResults () {
-    return (
-      (products && productFiltered.length === 0 ) ? products.map(product => (
-        <Card
-          key={product.id}
-          data={product}
-        />
-      )) : 
-      productFiltered.map(product => (
+    setSearchedProduct(inputValue.toLowerCase());
+  };
+
+  function renderResults() {
+    if (searchedProduct && productFiltered.length === 0) {
+      return (<h1 className='font-medium text-xl '>Products not found!!!</h1>)
+    }
+    if (!searchedProduct && productFiltered.length === 0) {
+      return (
+        products?.map(product => (
+          <Card
+            key={product.id}
+            data={product}
+          />
+        ))
+      );
+    };
+    if ((searchedProduct && productFiltered ) || (!searchedProduct && searchedProductsByCategory))  {
+      return (productFiltered.map(product => (
         <Card
           key={product.id}
           data={product}
         />
       ))
-    );
+      )
+    }
+    //Filtrado por categoria
   };
+
   return (
     <Layout>
       <div className='flex items-center justify-center  w-80 mb-6'>

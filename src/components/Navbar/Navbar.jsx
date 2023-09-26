@@ -6,7 +6,10 @@ import { HiShoppingBag } from 'react-icons/hi';
 
 
 export function Navbar(props) {
-  const { count } = useContext(DataProvider);
+  const {
+    count,
+    setSearchedProductsByCategory
+  } = useContext(DataProvider);
 
   const activeStyle = 'underline underline-offset-4';
 
@@ -14,12 +17,16 @@ export function Navbar(props) {
     <nav className='flex justify-between items-center bg-red-100 fixed z-10 w-full py-5 px-8 text-sm font-light top-0'>
       <ul className='flex justify-evenly items-center gap-3'>
         <li className='font-semibold text-lg'>
-          <NavLink className='' to='/'>
+          <NavLink
+            onClick={()=>setSearchedProductsByCategory('')}
+            className=''
+            to='/'>
             Store
           </NavLink>
         </li>
         <li>
           <NavLink
+            onClick={()=>setSearchedProductsByCategory('')}
             className={({ isActive }) => isActive ? activeStyle : null}
             to='/'>
             All
@@ -27,6 +34,7 @@ export function Navbar(props) {
         </li>
         <li>
           <NavLink
+            onClick={()=>setSearchedProductsByCategory('clothes')}
             className={({ isActive }) => isActive ? activeStyle : null}
             to='/clothes'>
             Clothes
@@ -35,6 +43,7 @@ export function Navbar(props) {
         <li>
           <NavLink
             className={({ isActive }) => isActive ? activeStyle : null}
+            onClick={()=>setSearchedProductsByCategory('electronics')}
             to='/electronics'>
             Electronics
           </NavLink>
@@ -42,6 +51,7 @@ export function Navbar(props) {
         <li>
           <NavLink
             className={({ isActive }) => isActive ? activeStyle : null}
+            onClick={()=>setSearchedProductsByCategory('furnitures')}
             to='/furnitures'>
             Furnitures
           </NavLink>
@@ -49,6 +59,7 @@ export function Navbar(props) {
         <li>
           <NavLink
             className={({ isActive }) => isActive ? activeStyle : null}
+            onClick={()=>setSearchedProductsByCategory('toys')}
             to='/toys'>
             Toys
           </NavLink>
@@ -56,6 +67,7 @@ export function Navbar(props) {
         <li>
           <NavLink
             className={({ isActive }) => isActive ? activeStyle : null}
+            onClick={()=>setSearchedProductsByCategory('others')}
             to='/others'>
             Others
           </NavLink>
@@ -88,7 +100,7 @@ export function Navbar(props) {
           </NavLink>
         </li>
         <li className='flex items-center'>
-          <HiShoppingBag className='text-xl'/>
+          <HiShoppingBag className='text-xl' />
           <span>
             {count}
           </span>
